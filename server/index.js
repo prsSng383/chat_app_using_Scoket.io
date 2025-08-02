@@ -10,7 +10,7 @@ import { Server } from 'socket.io';
 
 
 const app = express();
-const port = process.env.PORT || 5000;
+
 
 
 //We need to create the http server because socket.io only supports http.
@@ -53,6 +53,13 @@ app.use('/api/auth' , userRouter);
 app.use('/api/messages' , messageRouter);
 
 
+if(process.env.NODE_ENV !== "production"){
 
-server.listen(port , ()=>{console.log(`Server is running on PORT: ${port}`)});
+    const port = process.env.PORT || 5000;
+    server.listen(port , ()=>{console.log(`Server is running on PORT: ${port}`)});
+}
+
+
+//Export server for vercel.
+export default server
 
