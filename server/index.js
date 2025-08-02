@@ -42,7 +42,10 @@ io.on("connection", (socket)=>{
 app.use(express.json({limit:"4mb"}));
 
 //It will allow all the URLs to connect with our backend.
-app.use(cors(["http://localhost:5173"]));
+app.use(cors({
+  origin: 'https://chat-app-frontend-prssng.vercel.app',
+  credentials: true
+}));;
 
 //Calling connectDDB function here.
 await connectDB();
