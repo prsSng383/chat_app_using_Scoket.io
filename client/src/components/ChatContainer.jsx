@@ -4,13 +4,23 @@ import { formatMessageTime } from '../lib/utils';
 import { ChatContext } from '../../context/ChatContext';
 import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import EmojiPicker from 'emoji-picker-react';
 
 const ChatContainer = () => {
 
  const{messages , selectedUser , setSelectedUser , sendMessage , getMessages} = useContext(ChatContext);
  const{authUser , onlineUsers} = useContext(AuthContext);
  const[input , setInput] = useState("");
+ const [showEmojiPicker, setShowEmojiPicker] = useState(false);
  const scrollEnd = useRef();
+
+ //Handle emojis
+ const handleEmojiClick = (emojiData) => {
+  setInput((prev) => prev + emojiData.emoji);
+};
+
+
+
 //Handle sending a message
  const handleSendMessage = async(e)=>{
    
@@ -88,7 +98,7 @@ const ChatContainer = () => {
       </div>
 
       {/* -------Text and Send------- */}
-      <div className='absolute bottom-0 left-0 right-0 flex items-center gap-3 p-3'>
+      {/* <div className='absolute bottom-0 left-0 right-0 flex items-center gap-3 p-3'>
 
         <div className='flex-1 flex items-center bg-gray-100/12 px-3 rounded-full'>
           <textarea onChange={(e)=>setInput(e.target.value)} onKeyDown={(e)=>e.key==="Enter"? handleSendMessage(e):null} value={input} rows={1} className='flex-1 text-sm p-3 border-none rounded-lg outline-none text-white placeholder-gray-400 ' type="text" placeholder='Send a message...' />
@@ -100,7 +110,61 @@ const ChatContainer = () => {
         
         <img onClick={handleSendMessage} src={assets.send_button} alt="" className='w-7 cursor-pointer'/>
         
+      </div> */}
+      
+      {/* -------Text and Send------- */}
+      <div className='absolute bottom-0 left-0 right-0 flex items-center gap-3 p-3'>
+
+        {/* Input + Emoji + Gallery */}
+        <div className='flex-1 flex items-center bg-gray-100/12 px-3 rounded-full relative'>
+
+          {/* Emoji Button */}
+          <button
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+            className='text-xl text-white mr-2'
+          >
+            😊
+          </button>
+
+          {/* Emoji Picker Popup */}
+          {showEmojiPicker && (
+            <div className='absolute bottom-[60px] left-0 z-50'>
+              <EmojiPicker onEmojiClick={handleEmojiClick} theme="dark" />
+            </div>
+          )}
+
+          {/* Textarea */}
+          <textarea
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey ? handleSendMessage(e) : null}
+            value={input}
+            rows={1}
+            className='flex-1 text-sm p-3 border-none rounded-lg outline-none text-white placeholder-gray-400 bg-transparent resize-none'
+            placeholder='Send a message...'
+          />
+
+          {/* Gallery icon */}
+          <input
+            onChange={handleSendImage}
+            type="file"
+            id='image'
+            accept='image/png, image/jpeg'
+            hidden
+          />
+          <label htmlFor="image">
+            <img src={assets.gallery_icon} alt="" className='w-5 mr-2 cursor-pointer' />
+          </label>
+        </div>
+
+        {/* Send Button */}
+        <img
+          onClick={handleSendMessage}
+          src={assets.send_button}
+          alt=""
+          className='w-7 cursor-pointer'
+        />
       </div>
+
       
     </div>
   ) : (
