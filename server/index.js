@@ -11,7 +11,7 @@ import { Server } from 'socket.io';
 
 const app = express();
 
-
+  const port = process.env.PORT || 5000;
 
 //We need to create the http server because socket.io only supports http.
 const server = http.createServer(app);
