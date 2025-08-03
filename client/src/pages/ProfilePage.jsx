@@ -56,7 +56,7 @@ const ProfilePage = () => {
 
           {/* Pic and FileUpload */}
           <label htmlFor="avatar" className='flex items-center gap-3 cursor-pointer'>
-            <input onChange={(e)=>setSelectedImage(e.target.files[0]) ; onChangeHandler} type="file" id='avatar' accept='.png,.jpg,.jpeg' hidden />
+            <input onChange={(e)=>onChangeHandler(e)} type="file" id='avatar' accept='.png,.jpg,.jpeg' hidden />
             <img src={selectedImage ? URL.createObjectURL(selectedImage) : asset.avatar_icon} alt="" className={`w-12 h-12 ${selectedImage && "rounded-full"}`} />
             Upload Profile Image!
           </label>
