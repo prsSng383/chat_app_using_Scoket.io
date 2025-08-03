@@ -39,7 +39,7 @@ io.on("connection", (socket)=>{
 
 //Middleware
 //All the requests will first parse through the json format.
-app.use(express.json({limit:"4mb"}));
+app.use(express.json({limit:"20mb"}));
 
 //It will allow all the URLs to connect with our backend.
 app.use(cors({
