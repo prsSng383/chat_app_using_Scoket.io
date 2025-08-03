@@ -17,14 +17,7 @@ const app = express();
 const server = http.createServer(app);
 
 //Initialize socket.io server
-export const io = new Server(server, {
-  cors: {
-    origin: 'https://chat-app-frontend-prssng.vercel.app',
-    credentials: true,
-    methods: ["GET", "POST", "PUT"]
-  }
-});
-
+export const io = new Server(server , {cors:{origin:"*"}})
 //Store online Users
 export const userSocketMap = {}; //{userId:socketId}
 //Socket.io connection handler
