@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
+      console.log(password);
     if (currentState === "Sign Up" && !isDataSubmitted) {
       return setIsDataSubmitted(true);
     }
