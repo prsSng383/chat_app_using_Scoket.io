@@ -43,7 +43,7 @@ app.use(express.json({limit:"20mb"}));
 
 //It will allow all the URLs to connect with our backend.
 app.use(cors({
-  origin: 'https://chat-app-frontend-prssng.vercel.app',
+  origin: 'https://chat-app-frontend-sage-theta.vercel.app',
   credentials: true
 }));
 
